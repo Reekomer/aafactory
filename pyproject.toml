@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "autonomus-social-media-avatar"
+version = "0.1.0"
+description = ""
+authors = ["Jeremy de Gail <jeremy.degail@hoganlovells.com>"]
+readme = "README.md"
+packages = [{include = "autonomus_social_media_avatar", from = "./autonomus_social_media_avatar/src"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pydantic = "^2.10.4"
+gradio = "^5.9.1"
+openai = "^1.58.1"
+python-dotenv = "^1.0.1"
+llama-cpp-python = "^0.3.5"
+loguru = "^0.7.3"
+pandas = "^2.2.3"
+docstring-parser = "^0.16"
+tinydb = "^4.8.2"
+line-profiler = "^4.2.0"
+matplotlib = "^3.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
