@@ -40,4 +40,4 @@ async def run_narration(db_path: Path, environment_data: AvatarEnvironment) -> N
     # _manage_skills
     # _manage_inventory
     await save_multiple_to_db(db_path, data_to_save, TABLE_NAME)
-    return narrations
+    return narrations[0]

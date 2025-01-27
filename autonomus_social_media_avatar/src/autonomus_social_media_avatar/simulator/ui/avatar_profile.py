@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def create_avatar_profile():
+    gr.Markdown(f"# WORKS IN PROGRESS")
     gr.Markdown("### Avatar's Profile")
     with gr.Row():
         sliders = [

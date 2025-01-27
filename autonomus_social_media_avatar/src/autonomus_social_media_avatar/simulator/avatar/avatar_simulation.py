@@ -37,4 +37,4 @@ async def run_acting(db_path: Path, narration: Narration) -> Acting:
     )
     data_to_save = [acting.model_dump() for acting in acting]
     await save_multiple_to_db(db_path, data_to_save, TABLE_NAME)
-    return acting
+    return acting[0]

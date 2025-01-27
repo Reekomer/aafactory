@@ -57,14 +57,12 @@ async def create_news_feed(db_path: Path) -> list[News]:
     return news
 
 
-@profile
 async def run_environment_simulation_step(db_path: Path) -> AvatarEnvironment:
     environment_data = await _get_latest_environment_data(db_path)
     environment_data["storyline_phase"] = "Introduction"
     return AvatarEnvironment(**environment_data)
 
 
-@profile
 async def _get_latest_environment_data(db_path: Path) -> dict:
     # Open DB connection once
     db = TinyDB(db_path)
