@@ -1,0 +1,1 @@
+Based on: https://github.com/ValyrianTech/ComfyUI_with_Flux
