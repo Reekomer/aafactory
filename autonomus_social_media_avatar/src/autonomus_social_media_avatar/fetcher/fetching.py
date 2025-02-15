@@ -22,15 +22,14 @@ def _fetch_live_data() -> AvatarEnvironment:
     return AvatarEnvironment()
 
 
-async def send_request_to_open_ai(prompt: str, response_format: BaseModel) -> BaseModel:
-    response = client.beta.chat.completions.parse(
+async def send_request_to_open_ai(messages: list[dict[str, str]]) -> BaseModel:
+    response = client.chat.completions.create(
         model="gpt-4o", # gpt-4o-mini
-        messages=[{"role": "user", "content": prompt}],
-        response_format=response_format,
+        messages=messages,
         temperature=1.0,
         top_p=1.0,
     )
-    return response.choices[0].message.parsed
+    return response.choices[0].message.content
 
 
 async def asyncio_concurrency_with_semaphore(

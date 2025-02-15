@@ -19,6 +19,7 @@ docstring-parser = "^0.16"
 tinydb = "^4.8.2"
 line-profiler = "^4.2.0"
 matplotlib = "^3.10.0"
+soundfile = "^0.13.1"
 
 
 [build-system]

@@ -19,12 +19,12 @@ async def run_avatar_voice(acting: Acting) -> Path:
     return avatar_voice[0]
 
 
-async def send_request_to_elevenlabs(prompt: str) -> Path:
+async def send_request_to_elevenlabs(prompt: str, voice_id: str) -> Path:
     # Get API key from settings
     db = TinyDB(DB_PATH)
     settings = db.table("settings").all()[-1]
     api_key = settings["elevenlabs_api_key"]
-    voice_id = settings["voice_id"]
+    voice_id = voice_id
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
     
     headers = {

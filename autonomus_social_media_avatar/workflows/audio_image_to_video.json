@@ -1,0 +1,121 @@
+{
+  "1": {
+    "inputs": {
+      "sonic_unet": "unet.pth",
+      "ip_audio_scale": 1,
+      "use_interframe": true,
+      "dtype": "fp16",
+      "model": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "SONICTLoader",
+    "_meta": {
+      "title": "SONICTLoader"
+    }
+  },
+  "2": {
+    "inputs": {
+      "seed": 1454942941,
+      "inference_steps": 25,
+      "dynamic_scale": 1,
+      "fps": 25,
+      "model": [
+        "1",
+        0
+      ],
+      "data_dict": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "SONICSampler",
+    "_meta": {
+      "title": "SONICSampler"
+    }
+  },
+  "5": {
+    "inputs": {
+      "ckpt_name": "svd_xt.safetensors"
+    },
+    "class_type": "ImageOnlyCheckpointLoader",
+    "_meta": {
+      "title": "Image Only Checkpoint Loader (img2vid model)"
+    }
+  },
+  "6": {
+    "inputs": {
+      "min_resolution": 512,
+      "duration": 3.75,
+      "expand_ratio": 0.5,
+      "clip_vision": [
+        "5",
+        1
+      ],
+      "vae": [
+        "5",
+        2
+      ],
+      "audio": [
+        "9",
+        0
+      ],
+      "image": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "SONIC_PreData",
+    "_meta": {
+      "title": "SONIC_PreData"
+    }
+  },
+  "7": {
+    "inputs": {
+      "image": "avatar.jpg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "8": {
+    "inputs": {
+      "frame_rate": [
+        "2",
+        1
+      ],
+      "loop_count": 0,
+      "filename_prefix": "AnimateDiff",
+      "format": "video/h265-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 22,
+      "save_metadata": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "2",
+        0
+      ],
+      "audio": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine \ud83c\udfa5\ud83c\udd65\ud83c\udd57\ud83c\udd62"
+    }
+  },
+  "9": {
+    "inputs": {
+      "audio": "df8f1d5e094e4614a69044a4f191b3f6.mp3"
+    },
+    "class_type": "LoadAudio",
+    "_meta": {
+      "title": "LoadAudio"
+    }
+  }
+}
