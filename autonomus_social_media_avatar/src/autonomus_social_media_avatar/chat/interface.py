@@ -1,11 +1,14 @@
+from pathlib import Path
 from autonomus_social_media_avatar.comfyui.video import send_request_to_generate_video
-from autonomus_social_media_avatar.configuration import AVATAR_IMAGE_PATH
-from autonomus_social_media_avatar.database.manage_db import load_avatar_infos
+from autonomus_social_media_avatar.configuration import DB_PATH, DEFAULT_AVATAR_IMAGE_PATH
+from autonomus_social_media_avatar.database.manage_db import AVATAR_TABLE_NAME
 from autonomus_social_media_avatar.fetcher.fetching import send_request_to_open_ai
 from autonomus_social_media_avatar.utils.voice import send_request_to_elevenlabs
 import gradio as gr
 from PIL import Image
 from string import Template
+
+from tinydb import TinyDB
 
 CHAT_HISTORY = []
 SYSTEM_PROMPT = Template("""
@@ -26,7 +29,8 @@ def create_chat_interface():
                 background_knowledge = gr.Textbox(label="Background Knowledge", visible=False)
                 voice_model = gr.Dropdown(label="Voice Model", choices=["elevenlabs", "openai"], visible=False)
                 voice_id = gr.Textbox(label="Voice ID", visible=False)
-                avatar_animation = gr.Video(value=AVATAR_IMAGE_PATH, autoplay=True)
+                avatar_image = gr.Textbox(value=DEFAULT_AVATAR_IMAGE_PATH, visible=False)
+                avatar_animation = gr.Video(value=DEFAULT_AVATAR_IMAGE_PATH, autoplay=True)
             with gr.Column():
                 chatbot = gr.Chatbot(placeholder="<strong>Your Personal Avatar</strong><br>Ask Me Anything")
                 chatbot.like(vote, None, None)
@@ -34,18 +38,36 @@ def create_chat_interface():
                 submit_btn = gr.Button("Send")
                 submit_btn.click(
                     fn=send_request_to_llm,
-                    inputs=[msg, name, personality, background_knowledge, voice_model, voice_id],
+                    inputs=[avatar_image, msg, name, personality, background_knowledge, voice_model, voice_id],
                     outputs=[msg, chatbot, avatar_animation]
                 )
                 # Add refresh event
         chat.load(
-            fn=load_avatar_infos,
-            outputs=[name, personality, background_knowledge, avatar_animation, voice_model, voice_id]
+            fn=_load_avatar_infos_for_chat,
+            outputs=[name, personality, background_knowledge, avatar_animation, voice_model, voice_id, avatar_image]
         )
         return chat
 
-async def send_request_to_llm(user_prompt: str, name: str, personality: str, background_knowledge: str, voice_model: str, voice_id: str) -> tuple[str, list, str]:
+
+def _load_avatar_infos_for_chat():
+    db = TinyDB(DB_PATH)
+    table = db.table(AVATAR_TABLE_NAME)
+    avatar_info = table.get(doc_id=1) 
+    if avatar_info:
+        return (
+            avatar_info.get("name", ""),
+            avatar_info.get("personality", ""),
+            avatar_info.get("background_knowledge", ""),
+            avatar_info.get("avatar_image_path", "") ,  # for video
+            avatar_info.get("voice_model", "elevenlabs"),
+            avatar_info.get("voice_id", ""),
+            avatar_info.get("avatar_image_path", "")  # for image path
+        )
+    return "", "", "", DEFAULT_AVATAR_IMAGE_PATH, "elevenlabs", "", ""
+
+async def send_request_to_llm(avatar_image_path: str, user_prompt: str, name: str, personality: str, background_knowledge: str, voice_model: str, voice_id: str) -> tuple[str, list, str]:
     user_message = user_prompt
+    avatar_image_path = Path(avatar_image_path)
     if len(CHAT_HISTORY) > 0:
         user_message = CHAT_HISTORY[-1][0] + user_prompt
     messages = [
@@ -55,7 +77,7 @@ async def send_request_to_llm(user_prompt: str, name: str, personality: str, bac
     text_response = await send_request_to_open_ai(messages)
     if voice_model == "elevenlabs":
         audio_response = await send_request_to_elevenlabs(text_response, voice_id)
-    video_response = await send_request_to_generate_video(AVATAR_IMAGE_PATH, audio_response)
+    video_response = await send_request_to_generate_video(avatar_image_path, audio_response)
     # Return empty message (to clear input), updated history, and animation path
     CHAT_HISTORY.append([user_prompt, text_response])
     return "", CHAT_HISTORY, video_response

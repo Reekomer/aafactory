@@ -1,8 +1,9 @@
+import uuid
 from loguru import logger
 from tinydb import TinyDB
 from PIL import Image
 from pathlib import Path
-from autonomus_social_media_avatar.configuration import DB_PATH, AVATAR_IMAGE_PATH
+from autonomus_social_media_avatar.configuration import DB_PATH, AVATAR_IMAGES_PATH
 
 
 AVATAR_TABLE_NAME = "avatar"
@@ -15,15 +16,16 @@ def update_avatar_infos(name: str, personality: str, background_knowledge: str, 
     if AVATAR_TABLE_NAME in db.tables():
         db.drop_table(AVATAR_TABLE_NAME)
     table = db.table(AVATAR_TABLE_NAME)
-    avatar_image_path = _save_avatar_image(avatar_image, AVATAR_IMAGE_PATH)
+    avatar_image_path = _save_avatar_image(avatar_image, AVATAR_IMAGES_PATH)
     table.insert({"name": name, "personality": personality, "background_knowledge": background_knowledge, "avatar_image_path": avatar_image_path, "voice_model": voice_model, "voice_id": voice_id})
     logger.success(f"Avatar infos updated: {name}, {personality}, {background_knowledge}, {avatar_image_path}")
 
 
-def _save_avatar_image(avatar_image: Image.Image, avatar_image_path: Path) -> str:
+def _save_avatar_image(avatar_image: Image.Image, avatar_image_folder: Path) -> str:
     """
     Save the avatar image to the avatar image path.
     """
+    avatar_image_path = avatar_image_folder / f"{uuid.uuid4()}.png"
     avatar_image.save(avatar_image_path)
     return avatar_image_path.as_posix()
 
