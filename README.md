@@ -5,8 +5,6 @@
 ** AI Avatar Factory is an interface for creating and managing AI avatars. **
 
 
-[![Website][website-shield]][website-url]
-[![Dynamic JSON Badge][discord-shield]][discord-url]
 <br>
 [website-shield]: https://img.shields.io/badge/ComfyOrg-4285F4?style=flat
 [website-url]: https://aafactory.xyz/
