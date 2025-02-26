@@ -1,9 +1,9 @@
 from pathlib import Path
-from autonomus_social_media_avatar.comfyui.video import send_request_to_generate_video
-from autonomus_social_media_avatar.configuration import DB_PATH, DEFAULT_AVATAR_IMAGE_PATH
-from autonomus_social_media_avatar.database.manage_db import AVATAR_TABLE_NAME
-from autonomus_social_media_avatar.fetcher.fetching import send_request_to_open_ai
-from autonomus_social_media_avatar.utils.voice import send_request_to_elevenlabs
+from aafactory.comfyui.video import send_request_to_generate_video
+from aafactory.configuration import DB_PATH, DEFAULT_AVATAR_IMAGE_PATH
+from aafactory.database.manage_db import AVATAR_TABLE_NAME
+from aafactory.fetcher.fetching import send_request_to_open_ai
+from aafactory.utils.voice import send_request_to_elevenlabs
 import gradio as gr
 from PIL import Image
 from string import Template

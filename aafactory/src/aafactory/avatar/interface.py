@@ -1,4 +1,4 @@
-from autonomus_social_media_avatar.database.manage_db import load_avatar_infos, update_avatar_infos
+from aafactory.database.manage_db import load_avatar_infos, update_avatar_infos
 import gradio as gr
 
 def create_avatar_setup_interface() -> tuple[gr.Blocks, gr.Textbox, gr.TextArea, gr.TextArea, gr.Image]:
@@ -12,7 +12,7 @@ def create_avatar_setup_interface() -> tuple[gr.Blocks, gr.Textbox, gr.TextArea,
             background_knowledge = gr.TextArea(show_label=False, info="Enter the background knowledge of your avatar")
             gr.Markdown("### Avatar Image")
             avatar_image = gr.Image(sources=["upload"], type="pil", show_label=False, show_download_button=False, show_fullscreen_button=False)
-        with gr.Accordion("Voice Settings"):
+        with gr.Accordion("Voice Settings", open=False):
             gr.Markdown("### Voice Model")
             voice_model = gr.Dropdown(choices=["elevenlabs", "openai"], value="elevenlabs", interactive=True, info="Select the voice model you want to use")
             gr.Markdown("### Voice ID")

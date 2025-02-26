@@ -2,7 +2,7 @@ import json
 import os
 from pathlib import Path
 import time
-from autonomus_social_media_avatar.configuration import WORKFLOW_FOLDER
+from aafactory.configuration import WORKFLOW_FOLDER
 from loguru import logger
 import requests
 import soundfile as sf

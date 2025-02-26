@@ -1,6 +1,6 @@
-from autonomus_social_media_avatar.src.avatar.acting import run_avatar
-from autonomus_social_media_avatar.src.fetcher.fetching import run_fetcher
-from autonomus_social_media_avatar.src.narrator.narration import run_narration
+from aafactory.src.avatar.acting import run_avatar
+from aafactory.src.fetcher.fetching import run_fetcher
+from aafactory.src.narrator.narration import run_narration
 
 def main():
     current_environment = run_fetcher(simulation=True)

@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "autonomus-social-media-avatar"
+name = "aafactory"
 version = "0.1.0"
 description = ""
 authors = ["Jeremy de Gail <jeremy.degail@hoganlovells.com>"]
 readme = "README.md"
-packages = [{include = "autonomus_social_media_avatar", from = "./autonomus_social_media_avatar/src"}]
+packages = [{include = "aafactory", from = "./aafactory/src"}]
 
 [tool.poetry.dependencies]
 python = "^3.13"

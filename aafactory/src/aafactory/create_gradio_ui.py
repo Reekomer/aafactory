@@ -1,9 +1,10 @@
-from autonomus_social_media_avatar.act.interface import create_act_interface
-from autonomus_social_media_avatar.avatar.interface import create_avatar_setup_interface
-from autonomus_social_media_avatar.chat.interface import create_chat_interface
-from autonomus_social_media_avatar.react.interface import create_react_interface
-from autonomus_social_media_avatar.settings import create_settings
-from autonomus_social_media_avatar.style import CSS_STYLE
+from aafactory.act.interface import create_act_interface
+from aafactory.avatar.interface import create_avatar_setup_interface
+from aafactory.chat.interface import create_chat_interface
+from aafactory.react.interface import create_react_interface
+from aafactory.settings import create_settings
+from aafactory.style import CSS
+from aafactory.utils.interface import create_utils_interface
 import gradio as gr
 import asyncio
 
@@ -19,8 +20,10 @@ async def create_gradio_interface():
                 create_react_interface()
             with gr.Tab(label="Act"):
                 create_act_interface()
-            with gr.Tab(label="Settings"):
-                create_settings()
+            with gr.Tab(label="Utils"):
+                create_utils_interface()
+            # with gr.Tab(label="Settings"):
+            #     create_settings()
     return simulation
 
 

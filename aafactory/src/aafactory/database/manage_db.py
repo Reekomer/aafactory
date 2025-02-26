@@ -3,7 +3,7 @@ from loguru import logger
 from tinydb import TinyDB
 from PIL import Image
 from pathlib import Path
-from autonomus_social_media_avatar.configuration import DB_PATH, AVATAR_IMAGES_PATH
+from aafactory.configuration import DB_PATH, AVATAR_IMAGES_PATH
 
 
 AVATAR_TABLE_NAME = "avatar"

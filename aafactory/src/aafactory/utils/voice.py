@@ -1,23 +1,8 @@
 from pathlib import Path
 import uuid
-from autonomus_social_media_avatar.configuration import DB_PATH, VOICE_PATH
-from autonomus_social_media_avatar.fetcher.environment_objects import Acting
-from autonomus_social_media_avatar.fetcher.fetching import asyncio_concurrency_with_semaphore
+from aafactory.configuration import DB_PATH, VOICE_PATH
 import requests
 from tinydb import TinyDB
-
-async def run_avatar_voice(acting: Acting) -> Path:
-    prompt = " ".join(acting.thoughts)
-    request_args = [
-        (prompt,)
-    ]
-    avatar_voice = await asyncio_concurrency_with_semaphore(
-        send_request_to_elevenlabs,
-        request_args,
-        None,
-    )
-    return avatar_voice[0]
-
 
 async def send_request_to_elevenlabs(prompt: str, voice_id: str) -> Path:
     # Get API key from settings
