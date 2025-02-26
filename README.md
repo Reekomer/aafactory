@@ -4,14 +4,9 @@
 
 ** AI Avatar Factory is an interface for creating and managing AI avatars. **
 
-
 <br>
-[website-shield]: https://img.shields.io/badge/ComfyOrg-4285F4?style=flat
-[website-url]: https://aafactory.xyz/
-<!-- Workaround to display total user from https://github.com/badges/shields/issues/4500#issuecomment-2060079995 -->
-[discord-shield]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscord.com%2Fapi%2Finvites%2Fcomfyorg%3Fwith_counts%3Dtrue&query=%24.approximate_member_count&logo=discord&logoColor=white&label=Discord&color=green&suffix=%20total
-[discord-url]: https://discord.gg/C2Rjy8Q2ER
-
+[![Website](https://img.shields.io/badge/ComfyOrg-4285F4?style=flat)](https://aafactory.xyz/)
+[![Discord](https://img.shields.io/badge/ComfyOrg-4285F4?style=flat)](https://discord.gg/C2Rjy8Q2ER)
 </div>
 
 ## Installation
