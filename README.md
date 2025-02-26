@@ -6,6 +6,7 @@
 )](https://aafactory.xyz/)
 [![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/C2Rjy8Q2ER)
 
+[!AAFactory Screenshot](https://github.com/user-attachments/assets/7ccaf2c1-9b72-41ae-9a89-5688c94b7abe)
 ## Installation
 
 Install the required packages by running the following commands:
@@ -40,7 +41,9 @@ For ComfyUI, the worflow is defined in the `workflows` folder. You need to make 
 
 
 
+## More Examples
 
+See our website for more examples: [AAFactory.xyz](https://aafactory.xyz/)
 
 
 
