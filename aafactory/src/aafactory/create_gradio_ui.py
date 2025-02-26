@@ -22,8 +22,8 @@ async def create_gradio_interface():
                 create_act_interface()
             with gr.Tab(label="Utils"):
                 create_utils_interface()
-            # with gr.Tab(label="Settings"):
-            #     create_settings()
+            with gr.Tab(label="Settings"):
+                create_settings()
     return simulation
 
 

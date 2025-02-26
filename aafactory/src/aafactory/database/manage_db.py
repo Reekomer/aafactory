@@ -1,12 +1,11 @@
 import uuid
+from aafactory.schemas import Settings
 from loguru import logger
 from tinydb import TinyDB
 from PIL import Image
 from pathlib import Path
-from aafactory.configuration import DB_PATH, AVATAR_IMAGES_PATH
+from aafactory.configuration import AVATAR_TABLE_NAME, DB_PATH, AVATAR_IMAGES_PATH, SETTINGS_TABLE_NAME
 
-
-AVATAR_TABLE_NAME = "avatar"
 
 def update_avatar_infos(name: str, personality: str, background_knowledge: str, avatar_image: Image.Image, voice_model: str, voice_id: str) -> None:
     """
@@ -46,3 +45,12 @@ def load_avatar_infos() -> tuple[str, str, str, Image.Image]:
             avatar_info.get("voice_id", "")
         )
     return "", "", "", None, "", ""
+
+
+def get_settings() -> Settings:
+    """
+    Get the settings from the database.
+    """
+    db = TinyDB(DB_PATH)
+    table = db.table(SETTINGS_TABLE_NAME)
+    return Settings(**table.get(doc_id=1))

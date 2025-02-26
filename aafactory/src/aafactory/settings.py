@@ -38,6 +38,6 @@ def _save_settings_to_db(*args):
     logger.success("Settings saved")
     settings_dict = settings.model_dump()
     return [settings_dict[key] for key in [
-        'comfyui_server_ip', 'comfyui_server_port', 'openai_api_key',
+        'comfy_server_url', 'comfy_server_port', 'openai_api_key',
         'elevenlabs_api_key'
     ]]

@@ -6,6 +6,8 @@ from aafactory.configuration import WORKFLOW_FOLDER
 from loguru import logger
 import requests
 import soundfile as sf
+from aafactory.database.manage_db import get_settings
+
 
 COMFYUI_SERVER_URL = os.environ.get('COMFYUI_SERVER_URL')
 def send_request_to_generate_video(avatar_image_path: Path, audio_file_path: Path) -> Path:
@@ -22,12 +24,14 @@ def _upload_files(files: list[Path]) -> None:
     """
     Upload files to the server.
     """
+    settings = get_settings()
+    comfy_server_url = settings.comfy_server_url
     for file in files:
         with open(file, "rb") as f:
             to_upload_files = {
                 'image': (file.name, f, 'image/' + file.suffix[1:])
             }
-            response =requests.post(f"{COMFYUI_SERVER_URL}/upload/image", files=to_upload_files)
+            response =requests.post(f"{comfy_server_url}/upload/image", files=to_upload_files)
             if response.status_code == 200:
                 logger.success(f"Uploaded {file.name}")
             else:

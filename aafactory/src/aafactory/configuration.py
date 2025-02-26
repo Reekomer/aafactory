@@ -10,3 +10,6 @@ VOICE_PATH = ROOT_DIR / "assets/generated_voice/"
 WORKFLOW_FOLDER = ROOT_DIR / "workflows"
 DEFAULT_AVATAR_IMAGE_PATH = ROOT_DIR / "assets/demo/avatar.jpg"
 AVATAR_IMAGES_PATH = ROOT_DIR / "assets/avatar_images"
+
+SETTINGS_TABLE_NAME = "settings"
+AVATAR_TABLE_NAME = "avatar"
