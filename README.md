@@ -3,6 +3,8 @@
 # AI Avatar Factory
 
 ** AI Avatar Factory is an interface for creating and managing AI avatars. **
+
+
 [![Website][website-shield]][website-url]
 [![Dynamic JSON Badge][discord-shield]][discord-url]
 <br>
