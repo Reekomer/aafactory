@@ -46,4 +46,11 @@ For ComfyUI, the worflow is defined in the `workflows` folder. You need to make 
 See our website for more examples: [AAFactory.xyz](https://aafactory.xyz/)
 
 
+## Incoming Features
 
+- [ ] Add support for Hugging Face models (Text to Speech and Text to Text)
+- [ ] Create documentation for ComfyUI cloud hosting
+- [ ] Improve ComfyUI cloud hosting setup
+- [ ] Enable users to manage several avatars
+- [ ] Enable users to easily share avatar's setup with others
+- [ ] Add feature to let an avatar react to a Youtube video
