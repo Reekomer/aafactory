@@ -5,7 +5,7 @@ warnings.filterwarnings('ignore', message='Video does not have browser-compatibl
 warnings.filterwarnings('ignore', message='You have not specified a value for the `type` parameter.*')
 
 ROOT_DIR = Path(__file__).parent.parent.parent
-DB_PATH = ROOT_DIR / "databases" / "aristotle_avatar_simulation_db.json"
+DB_PATH = ROOT_DIR / "databases" / "avatar_db.json"
 VOICE_PATH = ROOT_DIR / "assets/generated_voice/"
 WORKFLOW_FOLDER = ROOT_DIR / "workflows"
 DEFAULT_AVATAR_IMAGE_PATH = ROOT_DIR / "assets/demo/avatar.jpg"
