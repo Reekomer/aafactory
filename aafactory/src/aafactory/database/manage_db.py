@@ -24,6 +24,7 @@ def _save_avatar_image(avatar_image: Image.Image, avatar_image_folder: Path) -> 
     """
     Save the avatar image to the avatar image path.
     """
+    avatar_image_folder.mkdir(parents=True, exist_ok=True)
     avatar_image_path = avatar_image_folder / f"{uuid.uuid4()}.png"
     avatar_image.save(avatar_image_path)
     return avatar_image_path.as_posix()

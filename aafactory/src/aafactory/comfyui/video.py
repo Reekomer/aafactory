@@ -3,20 +3,21 @@ import os
 from pathlib import Path
 import time
 from aafactory.configuration import WORKFLOW_FOLDER
+from aafactory.schemas import Settings
 from loguru import logger
 import requests
 import soundfile as sf
 from aafactory.database.manage_db import get_settings
 
 
-COMFYUI_SERVER_URL = os.environ.get('COMFYUI_SERVER_URL')
 def send_request_to_generate_video(avatar_image_path: Path, audio_file_path: Path) -> Path:
     """
     Send a request to the server to generate a video.
     """
+    settings = get_settings()
     _upload_files([avatar_image_path, audio_file_path])
     workflow = _create_workflow(avatar_image_path, audio_file_path)
-    video_url = _queue_task(workflow)
+    video_url = _queue_task(workflow, settings)
     return video_url
 
 
@@ -26,6 +27,7 @@ def _upload_files(files: list[Path]) -> None:
     """
     settings = get_settings()
     comfy_server_url = settings.comfy_server_url
+    logger.info(f"Uploading Files to ComfyUI Server at {comfy_server_url} ...")
     for file in files:
         with open(file, "rb") as f:
             to_upload_files = {
@@ -57,11 +59,11 @@ def _get_audio_file_duration(audio_file_path: Path) -> int:
     info = sf.info(str(audio_file_path))
     return round(info.duration, 2) + 2
 
-async def _queue_task(workflow: dict) -> str:
+async def _queue_task(workflow: dict, settings: Settings) -> str:
     """
     Queue a task to the server.
     """
-    response1 = _queue_prompt(workflow)
+    response1 = _queue_prompt(workflow, settings)
     if response1 is None:
         logger.error("Failed to queue the prompt.")
         return
@@ -69,10 +71,9 @@ async def _queue_task(workflow: dict) -> str:
     prompt_id = response1['prompt_id']
     logger.info(f'Prompt ID: {prompt_id}')
     logger.info('-' * 20)
-
     while True:
         time.sleep(5)
-        queue_response = _get_queue(COMFYUI_SERVER_URL)
+        queue_response = _get_queue(settings.comfy_server_url)
         if queue_response is None:
             continue
 
@@ -93,21 +94,21 @@ async def _queue_task(workflow: dict) -> str:
         if not any(prompt_id in item for item in queue_pending + queue_running):
             break
 
-    history_response = _get_history(COMFYUI_SERVER_URL, prompt_id)
+    history_response = _get_history(settings.comfy_server_url, prompt_id)
     if history_response is None:
         logger.error("Failed to retrieve history.")
         return
 
     output_info = history_response.get(prompt_id, {}).get('outputs', {}).get('8', {}).get('gifs', [{}])[0]
     filename = output_info.get('filename', 'unknown.png')
-    output_url = f"{COMFYUI_SERVER_URL}/api/viewvideo?filename={filename}"
+    output_url = f"{settings.comfy_server_url}/api/viewvideo?filename={filename}"
     logger.success(f"Output URL: {output_url}")
     return output_url
 
 
-def _queue_prompt(prompt):
+def _queue_prompt(prompt: str, settings: Settings):
     data = json.dumps(prompt).encode('utf-8')
-    prompt_url = f"{COMFYUI_SERVER_URL}/prompt"
+    prompt_url = f"{settings.comfy_server_url}/prompt"
     try:
         r = requests.post(prompt_url, data=data, headers={"Content-Type": "application/json"})
         r.raise_for_status()
