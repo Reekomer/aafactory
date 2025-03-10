@@ -4,7 +4,7 @@
       "sonic_unet": "unet.pth",
       "ip_audio_scale": 1,
       "use_interframe": true,
-      "dtype": "fp16",
+      "dtype": "bf16",
       "model": [
         "5",
         0
@@ -46,7 +46,7 @@
   },
   "6": {
     "inputs": {
-      "min_resolution": 512,
+      "min_resolution": 320,
       "duration": 3.8000000000000003,
       "expand_ratio": 0.5,
       "clip_vision": [
