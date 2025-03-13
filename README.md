@@ -7,6 +7,9 @@
 [![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/C2Rjy8Q2ER)
 
 ![AAFactory Screenshot](https://github.com/Reekomer/aafactory/blob/main/github_assets/napoleon_example.png?raw=true)
+
+## Tutorial:
+- Youtube tutorial: https://www.youtube.com/watch?v=MGmBf7OsFJk
 ## Installation
 
 Install the required packages by running the following commands:
