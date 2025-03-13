@@ -57,3 +57,4 @@ See our website for more examples: [AAFactory.xyz](https://aafactory.xyz/)
 - [ ] Enable users to manage several avatars
 - [ ] Enable users to easily share avatar's setup with others
 - [ ] Add feature to let an avatar react to a Youtube video
+- [ ] Add microphone button for direct chat with Avatar
