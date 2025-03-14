@@ -15,6 +15,7 @@ def send_request_to_generate_video(avatar_image_path: Path, audio_file_path: Pat
     Send a request to the server to generate a video.
     """
     settings = get_settings()
+    avatar_image_path = Path(avatar_image_path)
     _upload_files([avatar_image_path, audio_file_path])
     workflow = _create_workflow(avatar_image_path, audio_file_path)
     video_url = _queue_task(workflow, settings)

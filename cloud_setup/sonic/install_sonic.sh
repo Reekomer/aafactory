@@ -1,4 +1,5 @@
-source ComfyUI/venv/bin/activate
+#!/bin/bash
+. /venv/bin/activate
 pip install poetry
 poetry install
 

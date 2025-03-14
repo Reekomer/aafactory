@@ -14,17 +14,17 @@ def create_utils_interface():
         with gr.Accordion("Audio to Video", open=False):
             with gr.Row():
                 with gr.Column():
-                    avatar_image = gr.Textbox(value=DEFAULT_AVATAR_IMAGE_PATH, visible=False)
-                    avatar_animation = gr.Video(value=DEFAULT_AVATAR_IMAGE_PATH, autoplay=True)
+                    audio_avatar_image = gr.Textbox(value=DEFAULT_AVATAR_IMAGE_PATH, visible=False)
+                    audio_avatar_animation = gr.Video(value=DEFAULT_AVATAR_IMAGE_PATH, autoplay=True)
                 with gr.Column():
                     audio_file = gr.Audio(label="Audio File")
             btn_generate_video = gr.Button("Generate Video")
-            btn_generate_video.click(fn=_generate_video_from_audio, inputs=[audio_file, avatar_image], outputs=[avatar_animation])
+            btn_generate_video.click(fn=_generate_video_from_audio, inputs=[audio_file, audio_avatar_image], outputs=[audio_avatar_animation])
         with gr.Accordion("Script to Video", open=False):
             with gr.Row():
                 with gr.Column():
-                    avatar_image = gr.Textbox(value=DEFAULT_AVATAR_IMAGE_PATH, visible=False)
-                    avatar_animation = gr.Video(value=DEFAULT_AVATAR_IMAGE_PATH, autoplay=True)
+                    script_avatar_image = gr.Textbox(value=DEFAULT_AVATAR_IMAGE_PATH, visible=False)
+                    script_avatar_animation = gr.Video(value=DEFAULT_AVATAR_IMAGE_PATH, autoplay=True)
                 with gr.Column():
                     gr.Markdown("### Avatar Script")
                     avatar_script = gr.TextArea()
@@ -33,12 +33,12 @@ def create_utils_interface():
                     gr.Markdown("### Voice ID")
                     voice_id = gr.Textbox(show_label=False, interactive=True, info="Enter the voice id you want to use")
             btn_generate_video = gr.Button("Generate Video")
-            btn_generate_video.click(fn=_generate_video_from_script, inputs=[avatar_script, avatar_image, voice_model, voice_id], outputs=[avatar_animation])
+            btn_generate_video.click(fn=_generate_video_from_script, inputs=[avatar_script, script_avatar_image, voice_model, voice_id], outputs=[script_avatar_animation])
         
 
         utils.load(
             fn=_load_avatar_infos_for_chat,
-            outputs=[avatar_animation, avatar_image]
+            outputs=[audio_avatar_animation, audio_avatar_image, script_avatar_animation, script_avatar_image]
         )
     return utils
 
@@ -81,6 +81,8 @@ def _load_avatar_infos_for_chat() -> str:
     if avatar_info:
         return (
             avatar_info.get("avatar_image_path", ""),
+            avatar_info.get("avatar_image_path", ""),
+            avatar_info.get("avatar_image_path", ""),
             avatar_info.get("avatar_image_path", "")
         )
-    return DEFAULT_AVATAR_IMAGE_PATH, DEFAULT_AVATAR_IMAGE_PATH
+    return DEFAULT_AVATAR_IMAGE_PATH, DEFAULT_AVATAR_IMAGE_PATH, DEFAULT_AVATAR_IMAGE_PATH, DEFAULT_AVATAR_IMAGE_PATH
