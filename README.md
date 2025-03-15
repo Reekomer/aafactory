@@ -43,6 +43,20 @@ You will also need:
 For ComfyUI, the worflow is defined in the `workflows` folder. You need to make sure the nodes are installed. A more detailed guide will be available soon.
 
 
+### Current Tech Stack:
+
+- Gradio – Frontend
+
+- ComfyUI – Backend
+
+- OpenAI API – LLM
+
+- ElevenLabs – TTS
+
+- Flux – Text-to-Image (Avatar Generation)
+
+- Sonic – Audio-Driven Video Generation
+
 
 ## More Examples
 
