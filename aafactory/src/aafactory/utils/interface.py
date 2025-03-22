@@ -1,7 +1,7 @@
 from pathlib import Path
 import uuid
 from aafactory.comfyui.video import send_request_to_generate_video
-from aafactory.configuration import DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, VOICE_PATH
+from aafactory.configuration import DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, GENERATED_VOICE_PATH, VOICE_MODELS
 from aafactory.database.manage_db import AVATAR_TABLE_NAME
 from aafactory.utils.voice import send_request_to_elevenlabs
 import gradio as gr
@@ -29,7 +29,7 @@ def create_utils_interface():
                     gr.Markdown("### Avatar Script")
                     avatar_script = gr.TextArea()
                     gr.Markdown("### Voice Model")
-                    voice_model = gr.Dropdown(choices=["elevenlabs", "openai"], value="elevenlabs", interactive=True, info="Select the voice model you want to use")
+                    voice_model = gr.Dropdown(choices=VOICE_MODELS, value="elevenlabs", interactive=True, info="Select the voice model you want to use")
                     gr.Markdown("### Voice ID")
                     voice_id = gr.Textbox(show_label=False, interactive=True, info="Enter the voice id you want to use")
             btn_generate_video = gr.Button("Generate Video")
@@ -46,7 +46,7 @@ def create_utils_interface():
 async def _generate_video_from_audio(audio_file_bytes: bytes, avatar_image_str: bytes) -> str:
     # Save the audio file
     sample_rate, audio_data = audio_file_bytes  # Unpack the tuple
-    audio_file_path = VOICE_PATH / f"{uuid.uuid4().hex}.mp3"
+    audio_file_path = GENERATED_VOICE_PATH / f"{uuid.uuid4().hex}.mp3"
     audio_file_path.parent.mkdir(parents=True, exist_ok=True)
     
     # Normalize audio data to float32 between -1 and 1

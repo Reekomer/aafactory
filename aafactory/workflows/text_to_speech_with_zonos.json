@@ -1,0 +1,65 @@
+{
+  "12": {
+    "inputs": {
+      "audio": "voice.wav"
+    },
+    "class_type": "LoadAudio",
+    "_meta": {
+      "title": "LoadAudio"
+    }
+  },
+  "13": {
+    "inputs": {
+      "audio": [
+        "24",
+        0
+      ]
+    },
+    "class_type": "PreviewAudio",
+    "_meta": {
+      "title": "PreviewAudio"
+    }
+  },
+  "22": {
+    "inputs": {
+      "happy": 1,
+      "sad": 0,
+      "disgust": 0,
+      "fear": 0,
+      "surprise": 0,
+      "anger": 0.02,
+      "other": 0.1,
+      "neutral": 0.2
+    },
+    "class_type": "ZonosEmotion",
+    "_meta": {
+      "title": "Zonos Emotion"
+    }
+  },
+  "24": {
+    "inputs": {
+      "speech": "Hey there! This is pretty cool right?",
+      "seed": 580,
+      "model_type": "Zyphra/Zonos-v0.1-transformer",
+      "language": "en-us",
+      "cfg_scale": 2,
+      "min_p": 0.15,
+      "speed": 1,
+      "disable_compiler": true,
+      "sample_text": "No, all that stuff, like you could have all the money in the world, all the followers, everything. It's just doesn't really make you happy.",
+      "speaker_noised": true,
+      "sample_audio": [
+        "12",
+        0
+      ],
+      "emotion": [
+        "22",
+        0
+      ]
+    },
+    "class_type": "ZonosGenerate",
+    "_meta": {
+      "title": "Zonos Generate"
+    }
+  }
+}

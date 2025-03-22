@@ -50,6 +50,8 @@ def _save_settings_to_db(*args):
 def _load_settings_from_db():
     db = TinyDB(DB_PATH)
     settings_dict = db.table("settings").get(doc_id=1)
+    if settings_dict is None:
+        return [None, None, None, None]
     return [settings_dict[key] for key in [
         'comfy_server_url', 'comfy_server_port', 'openai_api_key',
         'elevenlabs_api_key'

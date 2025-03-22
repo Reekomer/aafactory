@@ -1,28 +1,36 @@
 import json
-import os
 from pathlib import Path
 import time
-from aafactory.configuration import WORKFLOW_FOLDER
+import uuid
+from aafactory.configuration import GENERATED_VIDEO_PATH, WORKFLOW_FOLDER
 from aafactory.schemas import Settings
 from loguru import logger
+from pydantic import BaseModel
 import requests
 import soundfile as sf
 from aafactory.database.manage_db import get_settings
 
 
-def send_request_to_generate_video(avatar_image_path: Path, audio_file_path: Path) -> Path:
+class QueueHistory(BaseModel):
+    prompt_id: str
+    response: dict
+
+
+async def send_request_to_generate_video(avatar_image_path: Path, audio_file_path: Path) -> Path:
     """
     Send a request to the server to generate a video.
     """
     settings = get_settings()
     avatar_image_path = Path(avatar_image_path)
-    _upload_files([avatar_image_path, audio_file_path])
+    upload_files_to_comfyui_server([avatar_image_path, audio_file_path])
     workflow = _create_workflow(avatar_image_path, audio_file_path)
-    video_url = _queue_task(workflow, settings)
-    return video_url
+    queue_history = await queue_task(workflow, settings)
+    video_url = _get_video_url(settings, queue_history)
+    output_path = _save_video_to_file(video_url)
+    return output_path
 
 
-def _upload_files(files: list[Path]) -> None:
+def upload_files_to_comfyui_server(files: list[Path]) -> None:
     """
     Upload files to the server.
     """
@@ -45,7 +53,7 @@ def _create_workflow(avatar_image_path: Path, audio_file_path: Path) -> dict:
     """
     Create a workflow for the video generation.
     """
-    with open(Path(WORKFLOW_FOLDER, "audio_image_to_video.json"), "r") as f:
+    with open(Path(WORKFLOW_FOLDER, "audio_image_to_video_with_sonic.json"), "r") as f:
         workflow = json.load(f)
     workflow["6"]["inputs"]["duration"] = _get_audio_file_duration(audio_file_path)
     workflow["7"]["inputs"]["image"] = avatar_image_path.name
@@ -60,7 +68,7 @@ def _get_audio_file_duration(audio_file_path: Path) -> int:
     info = sf.info(str(audio_file_path))
     return round(info.duration, 2) + 2
 
-async def _queue_task(workflow: dict, settings: Settings) -> str:
+async def queue_task(workflow: dict, settings: Settings) -> QueueHistory:
     """
     Queue a task to the server.
     """
@@ -94,17 +102,9 @@ async def _queue_task(workflow: dict, settings: Settings) -> str:
 
         if not any(prompt_id in item for item in queue_pending + queue_running):
             break
-
-    history_response = _get_history(settings.comfy_server_url, prompt_id)
-    if history_response is None:
-        logger.error("Failed to retrieve history.")
-        return
-
-    output_info = history_response.get(prompt_id, {}).get('outputs', {}).get('8', {}).get('gifs', [{}])[0]
-    filename = output_info.get('filename', 'unknown.png')
-    output_url = f"{settings.comfy_server_url}/api/viewvideo?filename={filename}"
-    logger.success(f"Output URL: {output_url}")
-    return output_url
+    
+    response = _get_history(settings.comfy_server_url, prompt_id)
+    return QueueHistory(prompt_id=prompt_id, response=response)
 
 
 def _queue_prompt(prompt: str, settings: Settings):
@@ -139,3 +139,26 @@ def _get_history(url, prompt_id):
     except requests.exceptions.RequestException as ex:
         print(f'GET {history_url} failed: {ex}')
         return None
+
+
+def _get_video_url(settings: Settings, queue_history: QueueHistory) -> str:
+    """
+    Get the video URL from the history response.
+    """
+    output_info = queue_history.response.get(queue_history.prompt_id, {}).get('outputs', {}).get('8', {}).get('gifs', [{}])[0]
+    filename = output_info.get('filename', 'unknown.png')
+    output_url = f"{settings.comfy_server_url}/api/viewvideo?filename={filename}"
+    logger.success(f"Output URL: {output_url}")
+    return output_url
+
+def _save_video_to_file(video_url: str) -> Path:
+    """
+    Save the video to a file.
+    """
+    output_path = GENERATED_VIDEO_PATH / f"{uuid.uuid4().hex}.mp4"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    response = requests.get(video_url)
+    with open(output_path, "wb") as f:
+        f.write(response.content)
+    logger.success(f"Video saved to {output_path}")
+    return output_path

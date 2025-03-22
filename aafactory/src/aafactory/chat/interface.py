@@ -1,9 +1,9 @@
 from pathlib import Path
 from aafactory.comfyui.video import send_request_to_generate_video
-from aafactory.configuration import DB_PATH, DEFAULT_AVATAR_IMAGE_PATH
+from aafactory.configuration import DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, VOICE_MODELS
 from aafactory.database.manage_db import AVATAR_TABLE_NAME
 from aafactory.fetcher.fetching import send_request_to_open_ai
-from aafactory.utils.voice import send_request_to_elevenlabs
+from aafactory.utils.voice import send_request_to_elevenlabs, send_request_to_zonos
 import gradio as gr
 from PIL import Image
 from string import Template
@@ -27,8 +27,11 @@ def create_chat_interface():
                 name = gr.Textbox(label="Name", visible=False)
                 personality = gr.Textbox(label="Personality", visible=False)
                 background_knowledge = gr.Textbox(label="Background Knowledge", visible=False)
-                voice_model = gr.Dropdown(label="Voice Model", choices=["elevenlabs", "openai"], visible=False)
+                voice_model = gr.Dropdown(label="Voice Model", choices=VOICE_MODELS, visible=False)
                 voice_id = gr.Textbox(label="Voice ID", visible=False)
+                voice_language = gr.Textbox(label="Voice Language", visible=False)
+                voice_recording_path = gr.Textbox(label="Voice Recording", visible=False)
+                audio_transcript = gr.Textbox(label="Audio Transcript", visible=False)
                 avatar_image = gr.Textbox(value=DEFAULT_AVATAR_IMAGE_PATH, visible=False)
                 avatar_animation = gr.Video(value=DEFAULT_AVATAR_IMAGE_PATH, autoplay=True)
             with gr.Column():
@@ -38,13 +41,13 @@ def create_chat_interface():
                 submit_btn = gr.Button("Send")
                 submit_btn.click(
                     fn=send_request_to_llm,
-                    inputs=[avatar_image, msg, name, personality, background_knowledge, voice_model, voice_id],
+                    inputs=[avatar_image, msg, name, personality, background_knowledge, voice_model, voice_id, voice_recording_path, audio_transcript, voice_language],
                     outputs=[msg, chatbot, avatar_animation]
                 )
                 # Add refresh event
         chat.load(
             fn=_load_avatar_infos_for_chat,
-            outputs=[name, personality, background_knowledge, avatar_animation, voice_model, voice_id, avatar_image]
+            outputs=[name, personality, background_knowledge, avatar_animation, voice_model, voice_id, voice_recording_path, audio_transcript, voice_language, avatar_image]
         )
         return chat
 
@@ -61,11 +64,14 @@ def _load_avatar_infos_for_chat():
             avatar_info.get("avatar_image_path", "") ,  # for video
             avatar_info.get("voice_model", "elevenlabs"),
             avatar_info.get("voice_id", ""),
+            avatar_info.get("voice_recording_path", ""),
+            avatar_info.get("audio_transcript", ""),
+            avatar_info.get("voice_language", ""),
             avatar_info.get("avatar_image_path", "")  # for image path
         )
-    return "", "", "", DEFAULT_AVATAR_IMAGE_PATH, "elevenlabs", "", ""
+    return "", "", "", DEFAULT_AVATAR_IMAGE_PATH, "elevenlabs", "", "", "", "", ""
 
-async def send_request_to_llm(avatar_image_path: str, user_prompt: str, name: str, personality: str, background_knowledge: str, voice_model: str, voice_id: str) -> tuple[str, list, str]:
+async def send_request_to_llm(avatar_image_path: str, user_prompt: str, name: str, personality: str, background_knowledge: str, voice_model: str, voice_id: str, voice_recording_path: str, audio_transcript: str, voice_language: str) -> tuple[str, list, str]:
     user_message = user_prompt
     avatar_image_path = Path(avatar_image_path)
     if len(CHAT_HISTORY) > 0:
@@ -77,6 +83,8 @@ async def send_request_to_llm(avatar_image_path: str, user_prompt: str, name: st
     text_response = await send_request_to_open_ai(messages)
     if voice_model == "elevenlabs":
         audio_response = await send_request_to_elevenlabs(text_response, voice_id)
+    elif voice_model == "zonos":
+        audio_response = await send_request_to_zonos(text_response, voice_language, voice_recording_path, audio_transcript)
     video_response = await send_request_to_generate_video(avatar_image_path, audio_response)
     # Return empty message (to clear input), updated history, and animation path
     CHAT_HISTORY.append([user_prompt, text_response])
