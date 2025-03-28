@@ -66,7 +66,7 @@ See our website for more examples: [AAFactory.xyz](https://aafactory.xyz/)
 ## Incoming Features
 
 - [ ] Add support for Hugging Face models (Text to Speech and Text to Text)
-- [ ] Create documentation for ComfyUI cloud hosting
+- [x] Create documentation for ComfyUI cloud hosting
 - [ ] Improve ComfyUI cloud hosting setup
 - [ ] Enable users to manage several avatars
 - [ ] Enable users to easily share avatar's setup with others
