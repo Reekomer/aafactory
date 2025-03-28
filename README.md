@@ -76,4 +76,4 @@ See our website for more examples: [AAFactory.xyz](https://aafactory.xyz/)
 
 ## Partners
 
-- ![HPI Logo](https://github.com/Reekomer/aafactory/blob/main/github_assets/hpi-logo-white.svg?raw=true)
+![HPI Logo](https://github.com/Reekomer/aafactory/blob/main/github_assets/hpi-logo-white.svg?raw=true)
