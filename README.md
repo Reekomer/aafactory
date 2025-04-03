@@ -68,7 +68,7 @@ See our website for more examples: [AAFactory.xyz](https://aafactory.xyz/)
 - [ ] Add support for Hugging Face models (Text to Speech and Text to Text)
 - [x] Create documentation for ComfyUI cloud hosting
 - [ ] Improve ComfyUI cloud hosting setup
-- [ ] Enable users to manage several avatars
+- [x] Enable users to manage several avatars
 - [ ] Enable users to easily share avatar's setup with others
 - [ ] Add feature to let an avatar react to a Youtube video
 - [ ] Add microphone button for direct chat with Avatar

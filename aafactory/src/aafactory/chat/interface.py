@@ -1,6 +1,6 @@
 from pathlib import Path
 from aafactory.comfyui.video import send_request_to_generate_video
-from aafactory.configuration import DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, VOICE_MODELS
+from aafactory.configuration import AVATAR_PAGE_SETTINGS_TABLE_NAME, DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, VOICE_MODELS
 from aafactory.database.manage_db import AVATAR_TABLE_NAME
 from aafactory.fetcher.fetching import send_request_to_open_ai
 from aafactory.utils.voice import send_request_to_elevenlabs, send_request_to_zonos
@@ -55,7 +55,10 @@ def create_chat_interface():
 def _load_avatar_infos_for_chat():
     db = TinyDB(DB_PATH)
     table = db.table(AVATAR_TABLE_NAME)
-    avatar_info = table.get(doc_id=1) 
+    avatar_page_settings_table = db.table(AVATAR_PAGE_SETTINGS_TABLE_NAME)
+    avatar_page_settings = avatar_page_settings_table.get(doc_id=1)  # Changed from 0 to 1 since TinyDB starts at 1
+    avatar_name = avatar_page_settings.get("avatar_name")
+    avatar_info = table.get(lambda x: x.get("name") == avatar_name) 
     if avatar_info:
         return (
             avatar_info.get("name", ""),
