@@ -15,6 +15,7 @@ AVATAR_IMAGES_PATH = ROOT_DIR / "assets/avatar_images"
 
 SETTINGS_TABLE_NAME = "settings"
 AVATAR_TABLE_NAME = "avatar"
+AVATAR_PAGE_SETTINGS_TABLE_NAME = "avatar_page_settings"
 AVATAR_VOICE_RECORDINGS_PATH = ROOT_DIR / "assets/avatar_voice_recordings"
 
 VOICE_MODELS = ["", "elevenlabs", "zonos"]
