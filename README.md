@@ -8,6 +8,83 @@
 
 ![AAFactory Screenshot](https://github.com/Reekomer/aafactory/blob/main/github_assets/napoleon_example.png?raw=true)
 
+
+## File Tree
+
+```bash
+├── LICENSE.md
+├── README.md
+├── aafactory
+│   ├── assets
+│   │   ├── avatar_images
+│   │   │   └── ...png
+│   │   ├── avatar_voice_recordings
+│   │   │   └── ...wav
+│   │   ├── demo
+│   │   │   ├── avatar.jpg
+│   │   │   ├── avatar.mp4
+│   │   │   └── voice_recording.mp3
+│   │   ├── generated_video
+│   │   ├── generated_videos
+│   │   │   └── ...mp4
+│   │   ├── generated_voice
+│   │   │   └── ...mp3
+│   │   └── generated_voices
+│   │       └── ...mp3
+│   ├── databases
+│   │   └── avatar_db.json
+│   ├── src
+│   │   ├── __init__.py
+│   │   └── aafactory
+│   │       ├── __init__.py
+│   │       ├── act
+│   │       │   └── interface.py
+│   │       ├── avatar
+│   │       │   └── interface.py
+│   │       ├── chat
+│   │       │   └── interface.py
+│   │       ├── comfyui
+│   │       │   └── video.py
+│   │       ├── configuration.py
+│   │       ├── create_gradio_ui.py
+│   │       ├── database
+│   │       │   └── manage_db.py
+│   │       ├── fetcher
+│   │       │   ├── environment_objects.py
+│   │       │   └── fetching.py
+│   │       ├── main.py
+│   │       ├── prompts.py
+│   │       ├── react
+│   │       │   └── interface.py
+│   │       ├── schemas.py
+│   │       ├── settings.py
+│   │       ├── style.py
+│   │       └── utils
+│   │           ├── interface.py
+│   │           └── voice.py
+│   ├── tests
+│   └── workflows
+│       ├── audio_image_to_video_with_sonic.json
+│       └── text_to_speech_with_zonos.json
+├── cloud_setup
+│   ├── joyvasa
+│   │   └── setup_joyvasa.sh
+│   ├── pyproject.toml
+│   ├── sonic
+│   │   ├── install_sonic.sh
+│   │   └── pyproject.toml
+│   ├── uv.lock
+│   └── zonos
+│       └── pyproject.toml
+├── github_assets
+│   ├── hpi-logo-white.svg
+│   └── napoleon_example.png
+├── poetry.lock
+├── pyproject.toml
+└── file_tree.txt
+```
+
+
 ## Tutorial:
 - Youtube tutorial: https://www.youtube.com/watch?v=MGmBf7OsFJk
 ## Installation

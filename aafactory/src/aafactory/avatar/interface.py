@@ -79,12 +79,12 @@ def _adapt_ui_to_voice_model(voice_model: str) -> tuple[gr.Textbox, gr.Audio, gr
     Adapt the UI to the voice model.
     """
     if voice_model == "elevenlabs":
-        return gr.Textbox(show_label=False, visible=True, interactive=True, info="Enter the voice id you want to use"), gr.Audio(show_label=False, visible=False, interactive=True, label="Upload a voice sample"), gr.TextArea(show_label=False, visible=False, interactive=True, info="Enter the audio transcript you want to use"), gr.Dropdown(choices=VOICE_LANGUAGES, visible=False, interactive=True, info="Select the voice language you want to use")
+        return gr.Textbox(show_label=False, visible=True, interactive=True, info="Enter the voice id you want to use"), gr.Audio(show_label=False, visible=False, interactive=True, label="Upload a voice sample"), gr.TextArea(show_label=False, visible=False, interactive=True, info="Enter the audio transcript you want to use"), gr.Dropdown(choices=VOICE_LANGUAGES, value="en-us", visible=False, interactive=True, info="Select the voice language you want to use")
     if voice_model == "zonos":
         gr.Markdown("### Clone a voice")
-        return gr.Textbox(show_label=False, visible=False, interactive=True, info="Enter the voice id you want to use"), gr.Audio(show_label=False, visible=True, interactive=True, label="Upload a voice sample"), gr.TextArea(show_label=False, visible=True, interactive=True, info="Enter the audio transcript you want to use"), gr.Dropdown(choices=VOICE_LANGUAGES, visible=True, interactive=True, info="Select the voice language you want to use")
+        return gr.Textbox(show_label=False, visible=False, interactive=True, info="Enter the voice id you want to use"), gr.Audio(show_label=False, visible=True, interactive=True, label="Upload a voice sample"), gr.TextArea(show_label=False, visible=True, interactive=True, info="Enter the audio transcript you want to use"), gr.Dropdown(choices=VOICE_LANGUAGES, value="en-us", visible=True, interactive=True, info="Select the voice language you want to use")
     if voice_model == "":
-        return gr.Textbox(show_label=False, visible=True, interactive=True, info="Enter the voice id you want to use"), gr.Audio(show_label=False, visible=False, interactive=True, label="Upload a voice sample"), gr.TextArea(show_label=False, visible=False, interactive=True, info="Enter the audio transcript you want to use"), gr.Dropdown(choices=VOICE_LANGUAGES, visible=False, interactive=True, info="Select the voice language you want to use")
+        return gr.Textbox(show_label=False, visible=True, interactive=True, info="Enter the voice id you want to use"), gr.Audio(show_label=False, visible=False, interactive=True, label="Upload a voice sample"), gr.TextArea(show_label=False, visible=False, interactive=True, info="Enter the audio transcript you want to use"), gr.Dropdown(choices=VOICE_LANGUAGES, value="en-us", visible=False, interactive=True, info="Select the voice language you want to use")
     raise ValueError(f"Voice model {voice_model} not supported")
 
 def _create_avatar_infos() -> tuple[gr.Accordion, gr.Accordion, gr.Button]:
