@@ -127,13 +127,3 @@ dependencies = [
 
 [build-system]
 requires = ["setuptools", "wheel"]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.3.1",
-    "pytest-cov>=4.1.0",
-]
-
-[tool.poetry.group.dev.dependencies]
-pytest = ">=7.3.1"
-pytest-cov = ">=4.1.0"
