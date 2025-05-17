@@ -122,6 +122,7 @@ dependencies = [
     "kornia>=0.8.0",
     "av>=14.2.0",
     "spandrel>=0.4.1",
+
 ]
 
 [build-system]
