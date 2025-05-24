@@ -1,6 +1,6 @@
-from aafactory.database.manage_db import get_available_avatars, load_avatar_infos, load_selected_avatar_infos, save_avatar_page_settings, update_avatar_infos
+from database.manage_db import get_available_avatars, load_avatar_infos, load_selected_avatar_infos, save_avatar_page_settings, update_avatar_infos
 import gradio as gr
-from aafactory.configuration import VOICE_LANGUAGES, VOICE_MODELS
+from configuration import VOICE_LANGUAGES, VOICE_MODELS
 
 def create_avatar_setup_interface() -> None:
     """

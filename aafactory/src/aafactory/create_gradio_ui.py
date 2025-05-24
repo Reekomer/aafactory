@@ -1,14 +1,13 @@
-from aafactory.configuration import DB_PATH, AVATAR_VOICE_RECORDINGS_PATH
-from aafactory.act.interface import create_act_interface
-from aafactory.avatar.interface import create_avatar_setup_interface
-from aafactory.chat.interface import create_chat_interface
-from aafactory.react.interface import create_react_interface
-from aafactory.settings import create_settings
-from aafactory.style import CSS
-from aafactory.utils.interface import create_utils_interface
+from configuration import DB_PATH, AVATAR_VOICE_RECORDINGS_PATH
+from act.interface import create_act_interface
+from avatar.interface import create_avatar_setup_interface
+from chat.interface import create_chat_interface
+from react.interface import create_react_interface
+from settings import create_settings
+from style import CSS
+from utils.interface import create_utils_interface
 import gradio as gr
 import asyncio
-
 
 async def create_gradio_interface():
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)

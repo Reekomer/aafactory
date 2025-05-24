@@ -1,5 +1,5 @@
-from aafactory.configuration import DB_PATH
-from aafactory.schemas import Settings
+from configuration import DB_PATH
+from schemas import Settings
 from dotenv import load_dotenv
 import gradio as gr
 import os
