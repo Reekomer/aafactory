@@ -1,0 +1,12 @@
+services:
+  app:
+    env_file:
+      - path: .env.sample
+        required: true
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7860:7860"
+    restart: unless-stopped
+    

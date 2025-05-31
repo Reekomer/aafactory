@@ -1,8 +1,7 @@
 from openai import BaseModel
 from openai import OpenAI
 import re
-from aafactory.database.manage_db import get_settings
-
+from database.manage_db import get_settings
 
 async def send_request_to_open_ai(messages: list[dict[str, str]]) -> BaseModel:
     """
