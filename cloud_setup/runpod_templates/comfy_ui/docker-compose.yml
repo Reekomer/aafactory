@@ -1,0 +1,15 @@
+services:
+  aafactory-server:
+    build:
+      context: .
+      platforms:
+        - linux/amd64
+    image: jeney/aafactory-server:2.1
+    environment:
+      - SERVE_API_LOCALLY=true
+    ports:
+      - "8000:8000"
+      - "8188:8188"
+    volumes:
+      - ./data/comfyui/output:/comfyui/output
+      - ./data/runpod-volume:/runpod-volume
