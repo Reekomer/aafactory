@@ -1,10 +1,10 @@
 import json
 from pathlib import Path
 import uuid
-from aafactory.comfyui.video import QueueHistory, queue_task, upload_files_to_comfyui_server
-from aafactory.configuration import DB_PATH, TEXT_TO_SPEECH_WITH_ZONOS_WORKFLOW_PATH, GENERATED_VOICE_PATH
-from aafactory.database.manage_db import get_settings
-from aafactory.schemas import Settings
+from comfyui.video import QueueHistory, queue_task, upload_files_to_comfyui_server
+from configuration import DB_PATH, TEXT_TO_SPEECH_WITH_ZONOS_WORKFLOW_PATH, GENERATED_VOICE_PATH
+from database.manage_db import get_settings
+from schemas import Settings
 from loguru import logger
 import requests
 from tinydb import TinyDB

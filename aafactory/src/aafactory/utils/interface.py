@@ -1,9 +1,9 @@
 from pathlib import Path
 import uuid
-from aafactory.comfyui.video import send_request_to_generate_video
-from aafactory.configuration import AVATAR_PAGE_SETTINGS_TABLE_NAME, DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, GENERATED_VOICE_PATH, VOICE_MODELS
-from aafactory.database.manage_db import AVATAR_TABLE_NAME
-from aafactory.utils.voice import send_request_to_elevenlabs
+from comfyui.video import send_request_to_generate_video
+from configuration import AVATAR_PAGE_SETTINGS_TABLE_NAME, DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, GENERATED_VOICE_PATH, VOICE_MODELS
+from database.manage_db import AVATAR_TABLE_NAME
+from utils.voice import send_request_to_elevenlabs
 import gradio as gr
 from tinydb import TinyDB
 import soundfile as sf

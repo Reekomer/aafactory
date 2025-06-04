@@ -2,13 +2,13 @@ import json
 from pathlib import Path
 import time
 import uuid
-from aafactory.configuration import GENERATED_VIDEO_PATH, WORKFLOW_FOLDER
-from aafactory.schemas import Settings
+from configuration import GENERATED_VIDEO_PATH, WORKFLOW_FOLDER
+from schemas import Settings
 from loguru import logger
 from pydantic import BaseModel
 import requests
 import soundfile as sf
-from aafactory.database.manage_db import get_settings
+from database.manage_db import get_settings
 
 
 class QueueHistory(BaseModel):

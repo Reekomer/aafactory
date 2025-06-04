@@ -1,6 +1,6 @@
 # Basic Initialization Test
 import pytest
-from aafactory.chat.interface import create_chat_interface
+from chat.interface import create_chat_interface
 from tests.test_configuration import TEST_AVATAR_IMAGE_PATH
 from PIL import Image
 

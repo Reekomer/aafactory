@@ -2,13 +2,12 @@ import uuid
 import numpy as np
 import gradio as gr
 import soundfile as sf
-from aafactory.schemas import Settings
+from schemas import Settings
 from loguru import logger
 from tinydb import TinyDB
 from PIL import Image
 from pathlib import Path
-from aafactory.configuration import AVATAR_PAGE_SETTINGS_TABLE_NAME, AVATAR_TABLE_NAME, DB_PATH, AVATAR_IMAGES_PATH, DEFAULT_VOICE_RECORDING_PATH, SETTINGS_TABLE_NAME, AVATAR_VOICE_RECORDINGS_PATH
-
+from configuration import AVATAR_PAGE_SETTINGS_TABLE_NAME, AVATAR_TABLE_NAME, DB_PATH, AVATAR_IMAGES_PATH, DEFAULT_VOICE_RECORDING_PATH, SETTINGS_TABLE_NAME, AVATAR_VOICE_RECORDINGS_PATH
 
 def update_avatar_infos(name: str, personality: str, background_knowledge: str, avatar_image: Image.Image, voice_model: str, voice_id: str, voice_recording: bytes, audio_transcript: str, voice_language: str) -> None:
     """
