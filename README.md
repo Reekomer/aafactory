@@ -119,6 +119,10 @@ You will also need:
 
 For ComfyUI, the worflow is defined in the `workflows` folder. You need to make sure the nodes are installed. A more detailed guide will be available soon.
 
+### Runpod Template for ComfyUI
+
+- [Template](https://runpod.io/console/deploy?template=laidmkkjli&ref=uw67f0zc)
+
 
 ### Current Tech Stack:
 
