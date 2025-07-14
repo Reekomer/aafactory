@@ -41,7 +41,9 @@ async def test_chat_history_on_avatar_change(mocker):
     assert chat_interface.CHAT_HISTORY == [
         ["Hi Avatar A!", "Hello, user!"],
     ]
-
+    # Clear history before switching avatar
+    chat_interface.CHAT_HISTORY.clear() 
+    
     # Second message with Avatar B
     await chat_interface.send_request_to_llm(
         "avatarB.png", "Hello Avatar B!", "AvatarB", "Serious", "Knows more stuff", 
