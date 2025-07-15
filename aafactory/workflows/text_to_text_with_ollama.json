@@ -1,0 +1,30 @@
+{
+  "1": {
+    "inputs": {
+      "prompt": "What is Art?",
+      "debug": "enable",
+      "url": "http://127.0.0.1:11434",
+      "model": "llama3.2:latest",
+      "keep_alive": 5,
+      "format": "text",
+      "filter_thinking": true
+    },
+    "class_type": "OllamaGenerate",
+    "_meta": {
+      "title": "Ollama Generate"
+    }
+  },
+  "3": {
+    "inputs": {
+      "output": "",
+      "source": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "Display Any (rgthree)",
+    "_meta": {
+      "title": "Display Any (rgthree)"
+    }
+  }
+}
