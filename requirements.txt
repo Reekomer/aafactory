@@ -1,0 +1,14 @@
+pydantic==2.10.4
+gradio==5.9.1
+openai==1.58.1
+python-dotenv==1.0.1
+llama-cpp-python==0.3.5
+loguru==0.7.3
+pandas==2.2.3
+docstring-parser==0.16
+tinydb==4.8.2
+line-profiler==4.2.0
+matplotlib==3.10.0
+soundfile==0.13.1
+pytest==8.3.5
+pytest-cov==6.1.1

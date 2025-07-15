@@ -1,9 +1,9 @@
 from pathlib import Path
-from aafactory.comfyui.video import send_request_to_generate_video
-from aafactory.configuration import AVATAR_PAGE_SETTINGS_TABLE_NAME, DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, VOICE_MODELS
-from aafactory.database.manage_db import AVATAR_TABLE_NAME
-from aafactory.fetcher.fetching import send_request_to_open_ai
-from aafactory.utils.voice import send_request_to_elevenlabs, send_request_to_zonos
+from comfyui.video import send_request_to_generate_video
+from configuration import AVATAR_PAGE_SETTINGS_TABLE_NAME, DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, VOICE_MODELS
+from database.manage_db import AVATAR_TABLE_NAME
+from fetcher.fetching import send_request_to_open_ai
+from utils.voice import send_request_to_elevenlabs, send_request_to_zonos
 import gradio as gr
 from PIL import Image
 from string import Template

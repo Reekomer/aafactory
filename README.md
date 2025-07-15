@@ -99,6 +99,11 @@ pip install poetry
 poetry install
 ```
 
+### With Docker:
+- `docker compose build`
+- `docker compose up`
+- Access to: `localhost:7860`
+
 ### ComfyUI
 - Use Video Helper Suite v1.5.0 (can be selected in ComfyManager)
 
