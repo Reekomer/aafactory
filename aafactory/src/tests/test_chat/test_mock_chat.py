@@ -26,8 +26,10 @@ async def test_send_request_to_llm(mocker):
     assert chat_interface.CHAT_HISTORY[0] == ["Hello", "Hi, user!"]
 
 @pytest.mark.asyncio
-async def test_chat_history_on_avatar_change(mocker):
+async def test_chat_history_clears_on_avatar_change(mocker):
     chat_interface.CHAT_HISTORY.clear()
+    chat_interface.CURRENT_AVATAR = None  # Reset avatar tracker
+
     mocker.patch("aafactory.chat.interface.send_request_to_open_ai", return_value="Hello, user!")
     mocker.patch("aafactory.chat.interface.send_request_to_elevenlabs", return_value="mock_audio_path.mp3")
     mocker.patch("aafactory.chat.interface.send_request_to_generate_video", return_value="mock_video_path.mp4")
@@ -41,8 +43,6 @@ async def test_chat_history_on_avatar_change(mocker):
     assert chat_interface.CHAT_HISTORY == [
         ["Hi Avatar A!", "Hello, user!"],
     ]
-    # Clear history before switching avatar
-    chat_interface.CHAT_HISTORY.clear() 
     
     # Second message with Avatar B
     await chat_interface.send_request_to_llm(
