@@ -11,6 +11,7 @@ from string import Template
 from tinydb import TinyDB
 
 CHAT_HISTORY = []
+CURRENT_AVATAR = None # Global variable to track current avatar
 SYSTEM_PROMPT = Template("""
 Your name is $name.
 Personality:
@@ -75,6 +76,13 @@ def _load_avatar_infos_for_chat():
     return "", "", "", DEFAULT_AVATAR_IMAGE_PATH, "elevenlabs", "", "", "", "", ""
 
 async def send_request_to_llm(avatar_image_path: str, user_prompt: str, name: str, personality: str, background_knowledge: str, voice_model: str, voice_id: str, voice_recording_path: str, audio_transcript: str, voice_language: str) -> tuple[str, list, str]:
+    global CURRENT_AVATAR
+
+    # Clear history if avatar changed
+    if CURRENT_AVATAR != name:
+        CHAT_HISTORY.clear()
+        CURRENT_AVATAR = name
+            
     user_message = user_prompt
     avatar_image_path = Path(avatar_image_path)
     if len(CHAT_HISTORY) > 0:
