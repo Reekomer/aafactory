@@ -63,6 +63,17 @@ async def send_request_to_zonos(text_response: str, voice_language: str, voice_r
     return output_path
 
 
+async def send_request_to_ollama(user_prompt) -> str:
+    """
+    Send a request to the server to generate a text.
+    """
+    settings = get_settings()
+    workflow = _create_text_to_text_with_ollama_workflow(user_prompt)
+    queue_history = await queue_task(workflow, settings)
+    text_response = _get_output_text(settings, queue_history)
+    return text_response
+
+
 def _create_text_to_speech_with_zonos_workflow(text_response: str, voice_language: str, voice_recording_path: Path, audio_transcript: str) -> dict:
     """
     Create a workflow for the text to speech with Zonos.
@@ -98,3 +109,11 @@ def _save_audio_to_file(audio_url: str) -> Path:
         f.write(response.content)
     logger.success(f"Audio saved to {output_path}")
     return output_path
+
+
+def _get_output_text(settings: Settings, queue_history: QueueHistory) -> str:
+    """
+    Get the output text from the history response.
+    """
+    output_info = queue_history.response.get(queue_history.prompt_id, {}).get('outputs', {}).get('3', {}).get('output', [{}])[0]
+    return output_info

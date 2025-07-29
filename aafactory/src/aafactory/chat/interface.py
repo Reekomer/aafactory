@@ -3,7 +3,7 @@ from aafactory.comfyui.video import send_request_to_generate_video
 from aafactory.configuration import AVATAR_PAGE_SETTINGS_TABLE_NAME, DB_PATH, DEFAULT_AVATAR_IMAGE_PATH, VOICE_MODELS
 from aafactory.database.manage_db import AVATAR_TABLE_NAME
 from aafactory.fetcher.fetching import send_request_to_open_ai
-from aafactory.utils.voice import send_request_to_elevenlabs, send_request_to_zonos
+from aafactory.utils.voice import send_request_to_elevenlabs, send_request_to_zonos, send_request_to_ollama
 import gradio as gr
 from PIL import Image
 from string import Template
@@ -83,7 +83,8 @@ async def send_request_to_llm(avatar_image_path: str, user_prompt: str, name: st
         {"role": "system", "content": SYSTEM_PROMPT.substitute(name=name, personality=personality, background_knowledge=background_knowledge)},
         {"role": "user", "content": user_message},
     ]
-    text_response = await send_request_to_open_ai(messages)
+    # text_response = await send_request_to_open_ai(messages)
+    text_response = await send_request_to_ollama(user_prompt)
     if voice_model == "elevenlabs":
         audio_response = await send_request_to_elevenlabs(text_response, voice_id)
     elif voice_model == "zonos":
