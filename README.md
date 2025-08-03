@@ -9,6 +9,10 @@
 ![AAFactory Screenshot](https://github.com/Reekomer/aafactory/blob/main/github_assets/napoleon_example.png?raw=true)
 
 
+# IMPORTANT
+- we are building a better UI for the project in here: https://github.com/orgs/AA-Factory/repositories
+This repository is being deprecated.
+
 ## File Tree
 
 ```bash
