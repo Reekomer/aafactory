@@ -10,7 +10,7 @@
 
 
 # IMPORTANT
-- we are building a better UI for the project in here: https://github.com/orgs/AA-Factory/repositories
+- we are building a better UI for the project in here: https://github.com/orgs/AA-Factory/repositories.
 This repository is being deprecated.
 
 ## File Tree
